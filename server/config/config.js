@@ -18,7 +18,8 @@ let urlDB;
 if (process.env.NODE_ENV === 'dev') {
 	urlDB = 'mongodb://localhost:27017/vinito';
 } else {
-	urlDB = MONGODB_URI;
+	urlDB = process.env.MONGODB_URI;
 }
 
 process.env.URLDB = urlDB;
+mongodb+srv://fedeemilo:A0hvzFl48cNIZGy2@cluster0-9zuxs.mongodb.net/vinito

@@ -22,4 +22,3 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 process.env.URLDB = urlDB;
-mongodb+srv://fedeemilo:A0hvzFl48cNIZGy2@cluster0-9zuxs.mongodb.net/vinito

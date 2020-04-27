@@ -2,56 +2,43 @@ require('./config/config');
 
 const express = require('express');
 const app = express();
-
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+// Routes
+const usuarioRoutes = require('./routes/usuarios');
 
-// parse application/json
-app.use(bodyParser.json())
+// Parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
 
+// Parse application/json
+app.use(bodyParser.json());
+
+// Mount routes
+app.use('/usuarios', usuarioRoutes);
+
+// Home get
 app.get('/', (req, res) => {
-    res.json('Hello World!');
-})
-
-
-app.get('/usuario', function(req, res) {
-    res.json('get Usuario LOCAL!!!');
+	res.json('Hello World!');
 });
 
-app.post('/usuario', function(req, res) {
+// Connect to database
+// mongodb+srv://fedeemilo:A0hvzFl48cNIZGy2@cluster0-9zuxs.mongodb.net/vinito
+mongoose.connect(
+	process.env.URLDB,
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useCreateIndex: true,
+		useFindAndModify: false
+	},
+	(err, res) => {
+		if (err) throw new err();
+		console.log('Base de datos ONLINE');
+	}
+);
 
-    let body = req.body;
-
-    if (body.nombre === undefined) {
-
-        res.status(400).json({
-            ok: false,
-            mensaje: 'El nombre es necesario'
-        });
-
-    } else {
-        res.json({
-            persona: body
-        });
-    }
-
-});
-
-app.put('/usuario/:id', function(req, res) {
-
-    let id = req.params.id;
-
-    res.json({
-        id
-    });
-});
-
-app.delete('/usuario', function(req, res) {
-    res.json('delete Usuario');
-});
-
+// Escuchando el puerto
 app.listen(process.env.PORT, () => {
-    console.log('Escuchando puerto: ', process.env.PORT);
+	console.log('Escuchando puerto: ', process.env.PORT);
 });

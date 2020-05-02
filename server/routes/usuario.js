@@ -5,7 +5,7 @@ const router = express.Router();
 const Usuario = require('../models/usuario');
 
 /* GET /usuario */
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
 	let desde = req.query.desde || 0;
 	desde = Number(desde);
 
@@ -36,7 +36,7 @@ router.get('/', function (req, res) {
 });
 
 /* POST /usuario */
-router.post('/', function (req, res) {
+router.post('/', (req, res) => {
 	let body = req.body;
 
 	let usuario = new Usuario({
@@ -62,7 +62,7 @@ router.post('/', function (req, res) {
 });
 
 /* UPDATE /usuario/:id */
-router.put('/:id', function (req, res) {
+router.put('/:id', (req, res) => {
 	let id = req.params.id;
 	let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
 
@@ -87,7 +87,7 @@ router.put('/:id', function (req, res) {
 });
 
 /* DELETE /usuario/:id */
-router.delete('/:id', function (req, res) {
+router.delete('/:id', (req, res) => {
     let id = req.params.id;
     let cambiaEstado = {
         estado: false

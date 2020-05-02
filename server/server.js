@@ -5,9 +5,6 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-// Routes
-const usuarioRoutes = require('./routes/usuarios');
-
 // Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -15,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Mount routes
-app.use('/usuarios', usuarioRoutes);
+app.use(require('./routes/index'));
 
 // Home get
 app.get('/', (req, res) => {
@@ -23,14 +20,13 @@ app.get('/', (req, res) => {
 });
 
 // Connect to database
-// mongodb+srv://fedeemilo:A0hvzFl48cNIZGy2@cluster0-9zuxs.mongodb.net/vinito
 mongoose.connect(
 	process.env.URLDB,
 	{
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useCreateIndex: true,
-		useFindAndModify: false
+		useFindAndModify: false,
 	},
 	(err, res) => {
 		if (err) throw new err();

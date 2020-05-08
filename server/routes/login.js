@@ -109,7 +109,7 @@ router.post('/google', async (req, res) => {
 						usuario: usuarioDB,
 					},
 					process.env.SEED,
-					{ expiresIn: 60 * 60 * 24 * 30 }
+					process.env.CADUCIDAD_TOKEN
 				);
 
 				return res.json({
